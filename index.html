@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALZZ UNBAN - REAL TELEGRAM INTEGRATION</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0b0b1a 0%, #1a1a2f 100%);
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(20, 20, 40, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo i {
+            font-size: 4em;
+            color: #25D366;
+            background: rgba(37, 211, 102, 0.1);
+            padding: 20px;
+            border-radius: 30px;
+        }
+
+        .logo h1 {
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-top: 15px;
+            background: linear-gradient(135deg, #a78bfa, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .owner-badge {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .owner-badge i {
+            color: #fbbf24;
+            margin-right: 8px;
+        }
+
+        .owner-badge span {
+            color: #94a3b8;
+        }
+
+        /* Form */
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+        }
+
+        .input-wrapper i {
+            width: 55px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 1.2em;
+        }
+
+        .input-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 18px 18px 18px 0;
+            color: white;
+            font-size: 1em;
+            outline: none;
+        }
+
+        .input-wrapper input::placeholder {
+            color: #4b5563;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Dashboard */
+        .user-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #10b981;
+        }
+
+        .user-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+        }
+
+        .user-label {
+            color: #94a3b8;
+        }
+
+        .user-value {
+            font-weight: 600;
+            color: #10b981;
+        }
+
+        .role-badge {
+            background: rgba(16, 185, 129, 0.2);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8em;
+        }
+
+        /* Result */
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box.success {
+            border-color: #10b981;
+        }
+
+        .result-box.error {
+            border-color: #ef4444;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .result-header i {
+            font-size: 1.5em;
+        }
+
+        .result-header.success i {
+            color: #10b981;
+        }
+
+        .result-header.error i {
+            color: #ef4444;
+        }
+
+        .result-content {
+            font-size: 0.9em;
+            color: #94a3b8;
+            word-break: break-word;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer a {
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #60a5fa;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <i class="fab fa-whatsapp"></i>
+            <h1>VALZZ UNBAN</h1>
+        </div>
+
+        <!-- Owner Badge -->
+        <div class="owner-badge">
+            <i class="fas fa-crown"></i> OWNER: @Nouvalznop · ID: 7775689147
+        </div>
+
+        <!-- LOGIN SECTION -->
+        <div id="loginSection">
+            <div class="input-group">
+                <label><i class="fas fa-key"></i> TOKEN AKSES</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-key"></i>
+                    <input type="text" id="tokenInput" placeholder="Masukkan token valid" autocomplete="off">
+                </div>
+            </div>
+            <button class="btn btn-primary" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> VALIDASI TOKEN
+            </button>
+            <p style="text-align: center; margin-top: 15px; font-size: 0.85em; color: #6b7280;">
+                <i class="fas fa-info-circle"></i> Token bisa didapat di @create_token_bot
+            </p>
+        </div>
+
+        <!-- DASHBOARD SECTION (Muncul setelah login sukses) -->
+        <div id="dashboardSection" class="hidden">
+            <div class="user-card">
+                <div class="user-row">
+                    <span class="user-label"><i class="fas fa-tag"></i> Token</span>
+                    <span class="user-value" id="displayToken">****</span>
+                </div>
+                <div class="user-row">
+                    <span class="user-label"><i class="fas fa-user-tag"></i> Role</span>
+                    <span class="user-value" id="displayRole">Biasa</span>
+                </div>
+                <div class="user-row">
+                    <span class="user-label"><i class="fas fa-hourglass-half"></i> Expired</span>
+                    <span class="user-value" id="displayExpired">-</span>
+                </div>
+                <div class="user-row">
+                    <span class="user-label"><i class="fas fa-bolt"></i> Limit</span>
+                    <span class="user-value" id="displayLimit">5/5</span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label><i class="fas fa-phone-alt"></i> NOMOR WHATSAPP</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-phone"></i>
+                    <input type="text" id="phoneInput" placeholder="628123456789">
+                </div>
+            </div>
+
+            <button class="btn btn-success" id="unbanBtn">
+                <i class="fas fa-bolt"></i> UNBAN SEKARANG
+            </button>
+            <button class="btn btn-outline" id="logoutBtn" style="margin-top: 10px;">
+                <i class="fas fa-sign-out-alt"></i> LOGOUT
+            </button>
+        </div>
+
+        <!-- RESULT BOX -->
+        <div id="resultBox" class="result-box">
+            <div class="result-header" id="resultHeader">
+                <i id="resultIcon" class="fas fa-check-circle"></i>
+                <h4 id="resultTitle">Sukses</h4>
+            </div>
+            <pre id="resultContent" class="result-content"></pre>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <a href="#" id="botUnbanLink"><i class="fab fa-telegram"></i> @valzzunban_bot</a>
+            <a href="#" id="botTokenLink"><i class="fab fa-telegram"></i> @create_token_bot</a>
+            <a href="#" id="ownerLink"><i class="fas fa-user"></i> Owner</a>
+        </div>
+    </div>
+
+    <script>
+        // ==================== KONFIGURASI BOT TELEGRAM (RAHASIA, TAPI KELIATAN) ====================
+        const BOT_TOKEN_UNBAN = '8501324551:AAHFr5TTweM7-c0q7_bF9ywC0qm5Ffxaqd8';
+        const BOT_TOKEN_CREATE = '8638155022:AAF6U3GtjUgwdxLRJjWWHSrzmTvxWR1hNBc';
+        const OWNER_ID = 7775689147;
+        // ==========================================================================================
+
+        // TOKEN DATABASE (VALIDASI MANUAL - GANTI PAKE API KALO MAU)
+        // Ini HARUS diganti dengan pengecekan real ke bot token kalau mau benar-benar aman
+        const TOKEN_STORAGE = {
+            'TRIAL-777': { 
+                role: 'biasa', 
+                name: 'Trial User', 
+                expired: '2024-12-31', 
+                maxUse: 5, 
+                used: 0 
+            },
+            'RSL-888': { 
+                role: 'reseller', 
+                name: 'Reseller User', 
+                expired: '2025-12-31', 
+                maxUse: 9999, 
+                used: 0 
+            },
+            'PTN-999': { 
+                role: 'partner', 
+                name: 'Partner User', 
+                expired: '2026-12-31', 
+                maxUse: 9999, 
+                used: 0 
+            }
+        };
+
+        // Current user session
+        let currentUser = null;
+
+        // DOM Elements
+        const loginSection = document.getElementById('loginSection');
+        const dashboardSection = document.getElementById('dashboardSection');
+        const resultBox = document.getElementById('resultBox');
+        const resultHeader = document.getElementById('resultHeader');
+        const resultIcon = document.getElementById('resultIcon');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultContent = document.getElementById('resultContent');
+
+        // Helper: show result
+        function showResult(success, title, message, detail = '') {
+            resultBox.classList.add('show');
+            resultHeader.className = `result-header ${success ? 'success' : 'error'}`;
+            resultIcon.className = success ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+            resultTitle.textContent = title;
+            resultContent.textContent = message + (detail ? '\n\n' + JSON.stringify(detail, null, 2) : '');
+        }
+
+        // Helper: hide result
+        function hideResult() {
+            resultBox.classList.remove('show');
+        }
+
+        // Helper: show loading di result
+        function showLoading(message = 'Memproses...') {
+            resultBox.classList.add('show');
+            resultHeader.className = 'result-header';
+            resultIcon.className = 'fas fa-spinner fa-spin';
+            resultTitle.textContent = 'Loading';
+            resultContent.textContent = message;
+        }
+
+        // Format nomor telepon
+        function formatPhone(phone) {
+            phone = phone.replace(/\D/g, '');
+            if (phone.startsWith('0')) {
+                phone = '62' + phone.substring(1);
+            } else if (phone.startsWith('8')) {
+                phone = '62' + phone;
+            } else if (!phone.startsWith('62')) {
+                phone = '62' + phone;
+            }
+            return phone;
+        }
+
+        // VALIDASI TOKEN KE BOT CREATE (REAL)
+        async function validateTokenWithBot(token) {
+            try {
+                // Kirim perintah ke bot create_token untuk validasi
+                const url = `https://api.telegram.org/bot${BOT_TOKEN_CREATE}/sendMessage`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: OWNER_ID, // Kirim ke owner, nanti owner reply
+                        text: `/cek_token ${token}`
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.ok) {
+                    // Di sini seharusnya bot nge-reply, tapi untuk demo kita pake storage dulu
+                    // GANTI: ini harusnya nunggu webhook atau polling
+                    return TOKEN_STORAGE[token] || null;
+                }
+                return null;
+            } catch (error) {
+                console.error('Error validating token:', error);
+                return null;
+            }
+        }
+
+        // KIRIM PERINTAH UNBAN KE BOT UNBAN (REAL)
+        async function sendUnbanCommand(phone, token) {
+            try {
+                const url = `https://api.telegram.org/bot${BOT_TOKEN_UNBAN}/sendMessage`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: OWNER_ID,
+                        text: `/unban ${phone} ${token}`
+                    })
+                });
+                
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error sending unban:', error);
+                throw error;
+            }
+        }
+
+        // LOGIN HANDLER
+        document.getElementById('loginBtn').addEventListener('click', async () => {
+            const token = document.getElementById('tokenInput').value.trim();
+            
+            if (!token) {
+                showResult(false, 'Error', 'Token tidak boleh kosong!');
+                return;
+            }
+
+            showLoading('Memvalidasi token ke server...');
+
+            try {
+                // Cek di storage dulu (ganti dengan validasi real nanti)
+                setTimeout(async () => {
+                    const tokenData = TOKEN_STORAGE[token];
+                    
+                    if (tokenData) {
+                        // Login sukses
+                        currentUser = {
+                            token: token,
+                            ...tokenData
+                        };
+
+                        // Update dashboard
+                        document.getElementById('displayToken').textContent = token.substring(0, 6) + '...' + token.substring(token.length - 4);
+                        document.getElementById('displayRole').textContent = tokenData.role.toUpperCase();
+                        document.getElementById('displayExpired').textContent = tokenData.expired;
+                        document.getElementById('displayLimit').textContent = `${tokenData.used}/${tokenData.maxUse}`;
+
+                        // Tampilkan dashboard
+                        loginSection.classList.add('hidden');
+                        dashboardSection.classList.remove('hidden');
+                        hideResult();
+
+                        // Kirim notifikasi ke owner
+                        await fetch(`https://api.telegram.org/bot${BOT_TOKEN_CREATE}/sendMessage`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                chat_id: OWNER_ID,
+                                text: `🔐 User login dengan token: ${token}\nRole: ${tokenData.role}`
+                            })
+                        });
+
+                    } else {
+                        showResult(false, 'Token Invalid', 'Token tidak ditemukan. Dapatkan token di @create_token_bot');
+                    }
+                }, 1500);
+
+            } catch (error) {
+                showResult(false, 'Error', error.message);
+            }
+        });
+
+        // UNBAN HANDLER
+        document.getElementById('unbanBtn').addEventListener('click', async () => {
+            if (!currentUser) {
+                showResult(false, 'Error', 'Silakan login terlebih dahulu');
+                return;
+            }
+
+            const phone = document.getElementById('phoneInput').value.trim();
+            
+            if (!phone) {
+                showResult(false, 'Error', 'Nomor WhatsApp tidak boleh kosong');
+                return;
+            }
+
+            const formattedPhone = formatPhone(phone);
+            
+            if (formattedPhone.length < 10 || formattedPhone.length > 15) {
+                showResult(false, 'Error', 'Format nomor tidak valid. Gunakan 62xxx');
+                return;
+            }
+
+            // Cek limit untuk role biasa
+            if (currentUser.role === 'biasa' && currentUser.used >= currentUser.maxUse) {
+                showResult(false, 'Limit Habis', 'Limit unban Anda sudah habis. Hubungi owner untuk upgrade.');
+                return;
+            }
+
+            showLoading(`Mengirim perintah unban untuk ${formattedPhone}...`);
+
+            try {
+                // Kirim command ke bot unban
+                const result = await sendUnbanCommand(formattedPhone, currentUser.token);
+                
+                if (result.ok) {
+                    // Update usage
+                    if (currentUser.role === 'biasa') {
+                        currentUser.used++;
+                        document.getElementById('displayLimit').textContent = `${currentUser.used}/${currentUser.maxUse}`;
+                    }
+
+                    showResult(true, 'Perintah Terkirim', 
+                        `✅ Perintah unban untuk ${formattedPhone} telah dikirim ke bot.`,
+                        result
+                    );
+
+                    // Update token storage (simulasi)
+                    if (TOKEN_STORAGE[currentUser.token]) {
+                        TOKEN_STORAGE[currentUser.token].used = currentUser.used;
+                    }
+
+                } else {
+                    showResult(false, 'Gagal', 'Bot tidak merespon. Coba lagi.', result);
+                }
+
+            } catch (error) {
+                showResult(false, 'Error', error.message);
+            }
+        });
+
+        // LOGOUT HANDLER
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            currentUser = null;
+            loginSection.classList.remove('hidden');
+            dashboardSection.classList.add('hidden');
+            document.getElementById('tokenInput').value = '';
+            document.getElementById('phoneInput').value = '';
+            hideResult();
+        });
+
+        // FOOTER LINKS
+        document.getElementById('botUnbanLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open('https://t.me/valzzunban_bot', '_blank');
+        });
+
+        document.getElementById('botTokenLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open('https://t.me/create_token_bot', '_blank');
+        });
+
+        document.getElementById('ownerLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open('https://t.me/Nouvalznop', '_blank');
+        });
+
+        // Auto-hide result saat mulai ngetik di token
+        document.getElementById('tokenInput').addEventListener('focus', hideResult);
+        document.getElementById('phoneInput').addEventListener('focus', hideResult);
+
+        // Cek koneksi ke bot saat load
+        (async function checkBotConnection() {
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN_UNBAN}/getMe`);
+                const data = await response.json();
+                if (data.ok) {
+                    console.log('✅ Bot Unban terkoneksi:', data.result.username);
+                }
+            } catch (error) {
+                console.error('❌ Gagal konek ke bot:', error);
+            }
+        })();
+    </script>
+</body>
+</html>
